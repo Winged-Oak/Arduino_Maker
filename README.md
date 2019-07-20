@@ -13,7 +13,9 @@ Tracker_pulseIn : 초음파 센서의 신호 수신을 내장 함수인 pulseIn 
                 : ~ pi/5(rad/sec) 수준의 속도까지는 수월하게 추적 가능함
                 
            Prob : 초음파센서 전면 약 5m이상 거리에 장애물이 없는 개활지에서 작동 불능상태.
-           <iframe width="640" height="360" src="https://www.youtube.com/watch?v=-HaPijdbomE" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+           
+<iframe width="640" height="360" src="https://www.youtube.com/watch?v=-HaPijdbomE" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+           
 Tracker_interrupts : 코드상 개활지에서 발생하는 pulseIn함수로 인해 발생하는 code blocking 문제를 계산 및 명령을 loop에서 ISR로 옮겨 보완함
 
                    : ~pi/2(rad/sec)의 속도까지 추적 가능함
@@ -23,6 +25,7 @@ Tracker_interrupts : 코드상 개활지에서 발생하는 pulseIn함수로 인
              After : 두 동일한 SR-04 센서의 출력(TRIG)-수신(ECHO) Signal pairing이 보장받지 못하기 때문으로 예상하여 
              
                      수신 영역대가 다른 초음파센서를 구비하여 동작시켜볼 예정
-                     <iframe width="640" height="360" src="https://www.youtube.com/watch?v=t1tX7Z9ZPSY" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+
+<iframe width="640" height="360" src="https://www.youtube.com/watch?v=t1tX7Z9ZPSY" frameborder="0" gesture="media" allowfullscreen=""></iframe>
 /***************************************************** Tracker *****************************************************/
 
