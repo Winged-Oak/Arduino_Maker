@@ -1,0 +1,87 @@
+#include <Servo.h>
+Servo servo1;
+
+/* 사용할 pin 및 상수 */
+const int TRIG1 = 8;
+const int ECHO1 = 2;
+const int TRIG2 = 9;
+const int ECHO2 = 3;
+const int SERVO1 = 5;
+const int V1 = 12;
+const int V2 = 13;
+const int MAXD = 50;     // Maximun distance
+const int MIND = 15;
+const float RATIO = 0.9;
+const float RATIO2 = 0.1;
+const int MAXA = 160;    // Maximun angle
+const int MINA = 20;     // Minimun angle
+
+/* Interrupter 내부에서 결정되고 변경되는 값들 */
+unsigned long volatile T1, T2, T3, T4;          // pulseIn 대체
+unsigned long volatile distance1, distance2;    // 시간차를 거리로 환산
+int volatile i = 90;                            // ServoMotor angle
+
+/* Distance를 측정하고 운동을 결정하는 Interrupt Service Routine */
+void Moment_IRS1(){
+  switch(digitalRead(ECHO1)){
+    case HIGH:
+      T1 = micros();
+      break;
+    case LOW:
+      T2 = micros();
+      if(T2-T1 > 1){
+        distance1 = (T2-T1)/59;
+        if (distance1 > MAXD) distance1 = MAXD;                                     // 상한과 하한 제한
+        else if (distance1 < MIND) distance1 = MIND;
+        if (abs(distance2-distance1) <= (MAXD-MIND)*RATIO2){
+          break;
+        }
+        if (distance1 > distance2 && distance1 >= MAXD*RATIO) i -= 1;               // 운동 결정 
+        else if (distance2 > distance1 && distance2 >= MAXD*RATIO) i += 1; 
+        if (i >= MAXA) i = MAXA;
+        if (i <= MINA) i = MINA;
+      }
+      servo1.write(i);                                                              // 운동 실현
+      break;
+   }
+   digitalWrite(TRIG1, HIGH); delayMicroseconds(10); digitalWrite(TRIG1, LOW);      // 다음 신호
+}
+void Moment_IRS2(){
+  switch(digitalRead(ECHO2)){
+    case HIGH:
+      T3 =  micros();
+      break;
+    case LOW:
+    if(T4 - T3 > 1){
+      T4 = micros();
+      distance2 = (T4-T3)/59;
+      if (distance2 > MAXD) distance2 = MAXD;
+      else if (distance2 < MIND) distance2 = MIND;
+      if (abs(distance2-distance1) <= (MAXD-MIND)*RATIO2){
+         break;
+      }
+      if (distance1 > distance2 && distance1 >= MAXD*RATIO) i -= 1; 
+      else if (distance2 > distance1 && distance2 >= MAXD*RATIO) i += 1; 
+      if (i >= MAXA) i = MAXA;
+      if (i <= MINA) i = MINA;
+      }
+      servo1.write(i);
+      break;
+  }
+  digitalWrite(TRIG2, HIGH); delayMicroseconds(10); digitalWrite(TRIG2, LOW); 
+}
+void setup() {
+  pinMode(TRIG1, OUTPUT); pinMode(ECHO1, INPUT);
+  pinMode(TRIG2, OUTPUT); pinMode(ECHO2, INPUT);
+  pinMode(V1, OUTPUT); pinMode(V2, OUTPUT);
+  digitalWrite(V1, LOW); digitalWrite(V2, LOW);
+  servo1.attach(SERVO1);
+  Serial.begin(9600);
+  attachInterrupt(digitalPinToInterrupt(ECHO1), Moment_IRS1, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(ECHO2), Moment_IRS2, CHANGE);
+  digitalWrite(TRIG1, LOW); delayMicroseconds(2); digitalWrite(TRIG1, HIGH); delayMicroseconds(10); digitalWrite(TRIG1, LOW); delayMicroseconds(10);
+  digitalWrite(TRIG2, LOW); delayMicroseconds(2); digitalWrite(TRIG2, HIGH); delayMicroseconds(10); digitalWrite(TRIG2, LOW); delayMicroseconds(10);
+}
+
+void loop() {
+}
