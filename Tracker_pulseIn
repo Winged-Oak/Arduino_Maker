@@ -1,0 +1,54 @@
+#include <Servo.h>
+
+const int TRIG1 = 8;
+const int ECHO1 = 9;
+const int TRIG2 = 11;
+const int ECHO2 = 10;
+const int SERVO1 = 5;
+const int V1 = 6;
+const int V2 = 7;
+int i = 90;
+Servo servo1;
+
+int distance1, distance2;
+
+void setup() {
+  pinMode(TRIG1, OUTPUT); pinMode(ECHO1, INPUT);
+  pinMode(TRIG2, OUTPUT); pinMode(ECHO2, INPUT);
+  pinMode(V1, OUTPUT); pinMode(V2, OUTPUT);
+  digitalWrite(V1, HIGH); digitalWrite(V2, HIGH);
+  servo1.attach(SERVO1);
+  Serial.begin(9600);
+
+}
+
+void loop() {
+ servo1.write(i); 
+ 
+ digitalWrite(TRIG1, HIGH);
+ delayMicroseconds(10);
+ digitalWrite(TRIG1, LOW);
+ distance1 = pulseIn(ECHO1, HIGH)/59;
+ if (distance1 > 35) distance1 = 35;
+ else if (distance1 < 4) distance1 = 4;
+ //Serial.print("D1: "), Serial.print(distance1); Serial.println("cm");
+ 
+ digitalWrite(TRIG2, HIGH);
+ delayMicroseconds(10);
+ digitalWrite(TRIG2, LOW);
+ //  Serial.println(T1); Serial.println(T2); Serial.println(T3);
+ distance2 = pulseIn(ECHO2,HIGH)/59;
+ if (distance2 > 35) distance2 = 35;
+ else if (distance2 < 4) distance2 = 4;
+ //Serial.print("D2: "), Serial.print(distance2); Serial.println("cm");
+ 
+ if (distance1 > distance2){
+  if (distance1 == 35) i -= 1; 
+ }
+ if (distance2 > distance1){
+  if (distance2 == 35) i += 1; 
+ }
+ if (i >= 180) i = 180;
+ if (i <= 0) i = 0;
+ //Serial.println(i); 
+}
