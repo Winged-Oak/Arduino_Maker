@@ -23,11 +23,11 @@ Tracker_interrupts : 코드상 개활지에서 발생하는 pulseIn함수로 인
 
                    : ~pi/2(rad/sec)의 속도까지 추적 가능함
                    
-              Prob : (특히 물체가 센서와 약 10cm 이내로 근접하였을 경우) 고개가 좌우로 요동치는 모습을 볼 수 있음.
+              Prob : (특히 물체가 센서와 약 10cm 이내로 근접하였을 경우) 고개가 좌우로 요동치는 모습을 볼 수 있음. Interrupts를 사용하며 빠른 운동으로 인해 소비전력을 배터리가 항상 채우지 버벅거림.
               
              After : 두 동일한 SR-04 센서의 출력(TRIG)-수신(ECHO) Signal pairing이 보장받지 못하기 때문으로 예상하여 
              
-                     수신 영역대가 다른 초음파센서를 구비하여 동작시켜볼 예정
+                     수신 영역대가 다른 초음파센서를 구비하여 동작시켜볼 예정.
 
 Video : (https://www.youtube.com/watch?v=t1tX7Z9ZPSY)
 
