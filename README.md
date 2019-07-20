@@ -2,6 +2,10 @@
 Brilliant Usage of Arduino
 
 /***************************************************** Tracker *****************************************************/
+![텍스트](https://user-images.githubusercontent.com/51029215/61582552-3aeb6f80-ab67-11e9-97a6-5496456e34f3.png)
+![텍스트](https://user-images.githubusercontent.com/51029215/61582558-46d73180-ab67-11e9-9a3b-e9a40b0c4e5c.jpg)
+
+
 
 Tracker : 아두이노, 초음파 센서(2), 서보 모터로 물체를 추적하는 행위를 구현
 
@@ -23,5 +27,3 @@ Tracker_interrupts : 코드상 개활지에서 발생하는 pulseIn함수로 인
                      
 /***************************************************** Tracker *****************************************************/
 
-![텍스트](C:\Users\송현우\Desktop\Master\kaist\아두실사.png)
-![텍스트](https://user-images.githubusercontent.com/51029215/61582558-46d73180-ab67-11e9-9a3b-e9a40b0c4e5c.jpg)
