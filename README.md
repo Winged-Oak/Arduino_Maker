@@ -14,6 +14,8 @@ Tracker_pulseIn : 초음파 센서의 신호 수신을 내장 함수인 pulseIn 
                 
            Prob : 초음파센서 전면 약 5m이상 거리에 장애물이 없는 개활지에서 작동 불능상태.
            
+          After : ECHO가 신호를 수신하지 못하면 pulseIn 함수에서 다음 단계로 진행하지 못하는 것으로 예상. pulseIn 함수의 대체제를 생각해야함.
+           
 <iframe width="640" height="360" src="https://www.youtube.com/watch?v=-HaPijdbomE" frameborder="0" gesture="media" allowfullscreen=""></iframe>
            
 Tracker_interrupts : 코드상 개활지에서 발생하는 pulseIn함수로 인해 발생하는 code blocking 문제를 계산 및 명령을 loop에서 ISR로 옮겨 보완함
